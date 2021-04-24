@@ -1,1 +1,3 @@
-# calculator
+# Calculator
+
+Calulator made with JavaScript
