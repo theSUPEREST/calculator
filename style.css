@@ -1,0 +1,84 @@
+html, body {
+    margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+    font-family: Arial, Helvetica, sans-serif;
+	vertical-align: baseline;
+    height: 100%;
+    background-color: #2a3d57
+}
+
+
+
+.flex-ctr {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calc {
+    height: 600px;
+    width: 400px;
+}
+
+.screen {
+    height: 150px;
+    background-color: #1e2530;
+    color: #ecfdfd;
+    box-sizing: border-box;
+    font-size: 60px;
+    text-align: right;
+    padding: 10px;
+}
+
+.buttons-area {
+    height: 450px;
+    background-color: #171c25;
+    display: grid;
+    grid-template-areas: 
+        'subfunction subfunction subfunction function'
+        'button button button function'
+        'button button button function'
+        'button button button function'
+        'button button button function';
+}
+
+.subfunct-btns {
+    grid-area: subfunction;
+    display: grid;
+    grid-template-columns: repeat(3 , 1fr);
+}
+
+.subfunct-btns > button {
+    background-color: #3D5A80;
+}
+
+.funct-btns {
+    grid-area: function;
+}
+
+.funct-btns > button {
+    background-color: #c94e2f;
+}
+
+.numpad {
+    grid-area: button;
+    display: grid;
+    grid-template-columns: repeat(3 , 1fr);
+}
+
+.numpad > button {
+    background-color: #1e2530;
+}
+
+button {
+    height: 90px;
+    width: 100px;
+    box-sizing: border-box;
+    border: 1px solid #ffffff07;
+    color:  #ecfdfd;
+    font-size: 28px;
+}
