@@ -13,14 +13,15 @@ function operate(operator, a, b) {
 let display = document.getElementById('screen');
 let input;
 let inputArray = [];
+let displayedNumber = [];
 
 /* Numpad */
 
 function getInput(event) { return input = event.target.id; };
 function deleteInput () { 
     inputArray.pop() 
-    combinedArray = inputArray.join('');
-    return display.textContent = combinedArray;
+    displayedNumber = inputArray.join('');
+    return display.textContent = displayedNumber;
 }
 
 function displayInput(event) {
@@ -30,8 +31,8 @@ function displayInput(event) {
     if (input >= 0 && inputArray[0] == 0 && inputArray.length === 1) {inputArray.pop()} 
     if (event.target.id == '.' && inputArray.includes('.')) {return}  // do not allow more than one '.'
     inputArray.push(input);
-    combinedArray = inputArray.join('');
-    return display.textContent = combinedArray;
+    displayedNumber = inputArray.join('');
+    return display.textContent = displayedNumber;
 }
 
 function displayNumpad(item) {
@@ -60,7 +61,7 @@ function runFunction(event) {
         let ans = operate(operator, workingNumbers[0], workingNumbers[1]);
         workingNumbers.splice(0, workingNumbers.length);
         workingNumbers.push(ans);
-        display.textContent = ans;
+        display.textContent = Math.round(ans * 100)/100;
         selectOperator(event);
     } else {  
         selectOperator(event)
@@ -87,11 +88,23 @@ function clearAll() {
     display.textContent = "";
 }
 
+function changeSign() {
+    let testChange = inputArray.join('');
+    testChange *= -1;
+    inputArray = testChange.toString().split('');
+    displayedNumber = inputArray.join('');
+    return display.textContent = displayedNumber;
+
+}
+
 function addSubfunctionListener(item) {
     item.addEventListener('click', (event) => {
         if (event.target.id === 'clear') {
             return clearAll();
         };
+        if (event.target.id === 'plus-minus') {
+            return changeSign();
+        }
     })
 };
 
