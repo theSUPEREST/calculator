@@ -19,7 +19,7 @@ let displayedNumber = [];
 
 function getInput(event) { return input = event.target.id; };
 function deleteInput () { 
-    inputArray.pop() 
+    inputArray.pop(); 
     displayedNumber = inputArray.join('');
     return display.textContent = displayedNumber;
 }
@@ -53,11 +53,21 @@ function selectOperator(event) {
     if (event.target.id === 'divide') { operator = divide; }
 }
 
+function checkDivideBy0() {
+    
+}
+
 function runFunction(event) {
-    if (inputArray.length === 0) {return}
+    if (inputArray.length === 0) {return selectOperator(event)}
+    
     if (workingNumbers.length >= 1) {
+
         workingNumbers.push(Number(inputArray.join('')));
         inputArray.splice(0, inputArray.length);
+        if (operator.name === 'divide' && workingNumbers[1] === 0) {
+            workingNumbers.pop();
+            return display.textContent = "Cannot divide by 0"
+        };
         let ans = operate(operator, workingNumbers[0], workingNumbers[1]);
         workingNumbers.splice(0, workingNumbers.length);
         workingNumbers.push(ans);
