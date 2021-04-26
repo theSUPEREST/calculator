@@ -14,6 +14,8 @@ let display = document.getElementById('screen');
 let input;
 let inputArray = [];
 
+/* Numpad */
+
 function getInput(event) { return input = event.target.id; };
 function deleteInput () { 
     inputArray.pop() 
@@ -38,3 +40,60 @@ function displayNumpad(item) {
 
 const numpad = document.querySelectorAll('.numpad > button');
 numpad.forEach(displayNumpad);
+
+/* Functions */
+let workingNumbers = [];
+let operator;
+
+function selectOperator(event) {
+    if (event.target.id === 'add') { operator = add; }
+    if (event.target.id === 'subtract') { operator = subtract; }
+    if (event.target.id === 'multiply') { operator = multiply; }
+    if (event.target.id === 'divide') { operator = divide; }
+}
+
+function runFunction(event) {
+    if (inputArray.length === 0) {return}
+    if (workingNumbers.length >= 1) {
+        workingNumbers.push(Number(inputArray.join('')));
+        inputArray.splice(0, inputArray.length);
+        let ans = operate(operator, workingNumbers[0], workingNumbers[1]);
+        workingNumbers.splice(0, workingNumbers.length);
+        workingNumbers.push(ans);
+        display.textContent = ans;
+        selectOperator(event);
+    } else {  
+        selectOperator(event)
+        console.log(operator)  
+        workingNumbers.push(Number(inputArray.join(''))); // push input array to working numbers array for operation
+        inputArray.splice(0, inputArray.length);
+    }
+}
+
+function addFunctionListener(item) {
+    item.addEventListener('click', runFunction )
+};
+
+const functions = document.querySelectorAll('.funct-btns > button');
+functions.forEach(addFunctionListener);
+
+/* Sub-Functions */
+
+// clear button
+
+function clearAll() {
+    workingNumbers.splice(0, workingNumbers.length);
+    inputArray.splice(0, inputArray.length);
+    display.textContent = "";
+}
+
+function addSubfunctionListener(item) {
+    item.addEventListener('click', (event) => {
+        if (event.target.id === 'clear') {
+            return clearAll();
+        };
+    })
+};
+
+const subfunctions = document.querySelectorAll('.subfunct-btns > button');
+subfunctions.forEach(addSubfunctionListener);
